@@ -1,6 +1,11 @@
 package com.mai_llj.plugin;
 
 public class config {
+    // 共通変数
+    // ブロック設置情報取得フラグ
+    public static boolean getBlockPlaceFlag = false;
+
+    // config.ymlの値を格納する変数
     // データベース
     public static String host;
     public static String database;
@@ -8,10 +13,11 @@ public class config {
     public static String password;
     // 参加メッセージ
     public static String serverName;
-    public static int[] msgData = new int[3];
+    public static int[] firstTimeMsgData = new int[3];
     public static String[] firstTimeMsg = new String[2];
     public static String firstTimeChatmessage;
     public static String chatMessage;
+
 
 }
 

@@ -8,6 +8,6 @@ commands:
   placedinfo:
     description: 対象ブロックの設置者や設置時刻を取得します。
     usage: /placedinfo
-    aliases: [ pi ]
+    aliases: [ plif ]
     permission: quill.putblockinfo
     permission-message: 権限が不足しています。
