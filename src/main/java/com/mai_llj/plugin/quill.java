@@ -4,21 +4,10 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import static com.mai_llj.plugin.database.checkDB;
+import static com.mai_llj.plugin.config.*;
 
 
 public final class quill extends JavaPlugin {
-
-    // データベース
-    public static String host;
-    public static String database;
-    public static String user;
-    public static String password;
-    // 参加メッセージ
-    public static String serverName;
-    public static int[] msgData = new int[3];
-    public static String[] firstTimeMsg = new String[2];
-    public static String firstTimeChatmessage;
-    public static String chatMessage;
     @Override
     public void onEnable() {
         // Plugin startup logic

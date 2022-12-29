@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.Date;
 
+import static com.mai_llj.plugin.config.*;
 
 public class database {
     // データベースの接続
@@ -15,7 +16,7 @@ public class database {
             // JDBCドライバのロード
             Class.forName("com.mysql.jdbc.Driver");
             // データベースへの接続
-            Connection con = DriverManager.getConnection("jdbc:mysql://"+quill.host, quill.user, quill.password);
+            Connection con = DriverManager.getConnection("jdbc:mysql://"+host, user, password);
             // ステートメントの作成
             Statement stmt = con.createStatement();
 
@@ -35,7 +36,7 @@ public class database {
             // JDBCドライバのロード
             Class.forName("com.mysql.jdbc.Driver");
             // データベースへの接続
-            Connection con = DriverManager.getConnection("jdbc:mysql://"+quill.host+"/"+quill.database, quill.user, quill.password);
+            Connection con = DriverManager.getConnection("jdbc:mysql://"+host+"/"+database, user, password);
             // ステートメントの作成
             Statement stmt = con.createStatement();
             // テーブルが存在しなければ作成
@@ -58,7 +59,7 @@ public class database {
             // JDBCドライバのロード
             Class.forName("com.mysql.jdbc.Driver");
             // データベースへの接続
-            Connection con = DriverManager.getConnection("jdbc:mysql://"+quill.host+"/"+quill.database, quill.user, quill.password);
+            Connection con = DriverManager.getConnection("jdbc:mysql://"+host+"/"+database, user, password);
             // ステートメントの作成
             Statement stmt = con.createStatement();
             // テーブルが存在しなければ作成
