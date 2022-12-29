@@ -17,7 +17,8 @@ public final class quill extends JavaPlugin {
     public static String serverName;
     public static int[] msgData = new int[3];
     public static String[] firstTimeMsg = new String[2];
-    public static String message;
+    public static String firstTimeChatmessage;
+    public static String chatMessage;
     @Override
     public void onEnable() {
         // Plugin startup logic
@@ -41,7 +42,8 @@ public final class quill extends JavaPlugin {
             msgData[2] = config.getInt("welcome_msg.first_time.fadeout");
             firstTimeMsg[0] = config.getString("welcome_msg.first_time.message");
             firstTimeMsg[1] = config.getString("welcome_msg.first_time.sub_message");
-            message = config.getString("welcome_msg.message");
+            firstTimeChatmessage = config.getString("welcome_msg.first_time.chat_message");
+            chatMessage = config.getString("welcome_msg.chat_message");
 
             checkDB();
         } else {
