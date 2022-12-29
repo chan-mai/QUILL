@@ -1,0 +1,15 @@
+welcome_msg:
+  server_name: "A Minecraft Server"
+  first_time:
+    fadein: 15
+    stay: 200
+    fadeout: 15
+    message: "ようこそ %server_name% へ!"
+    sub_message: "はじめまして, %player%!"
+  message: "おかえりなさい%player%！"
+
+connection:
+  host: "mysql://127.0.0.1:3306"
+  username: ""
+  password: ""
+  database: "quill"
