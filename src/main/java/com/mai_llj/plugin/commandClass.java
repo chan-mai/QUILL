@@ -10,12 +10,15 @@ import org.bukkit.entity.Player;
 
 import java.util.UUID;
 
-import static com.mai_llj.plugin.config.*;
+import static com.mai_llj.plugin.config.config.*;
 import static com.mai_llj.plugin.database.*;
+import static com.mai_llj.plugin.util.configParser.*;
 
 public class commandClass implements CommandExecutor {
+
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+        // placedinfo
         if (command.getName().equalsIgnoreCase("placedinfo")) {
             if (args.length == 0) {
                 sender.sendMessage("§a情報を取得したいブロックを左クリックしてください。");
@@ -49,7 +52,22 @@ public class commandClass implements CommandExecutor {
                     return true;
                 }
             }
+        // deadlocation
+        } else if (command.getName().equalsIgnoreCase("deathlocation")) {
+            // プレイヤーのUUIDを取得
+            String uuid = sender.getName();
+            // データベースから最終死亡時の座標を取得
+            String[] res = getDeathLocation(uuid);
+            // メッセージテンプレートから送信メッセージを動的に生成
+            String message = confParse(deathLocationMessage, sender.getName(), res[0], Integer.parseInt(res[1]), Integer.parseInt(res[2]), Integer.parseInt(res[3]));
+            // プレイヤーにメッセージを送信
+            sender.sendMessage(message);
+
+            return true;
         }
         return false;
     }
+
+
+
 }

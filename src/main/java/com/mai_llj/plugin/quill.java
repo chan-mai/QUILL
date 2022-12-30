@@ -1,7 +1,6 @@
 package com.mai_llj.plugin;
 
 import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
 
@@ -33,6 +32,4 @@ public final class quill extends JavaPlugin {
         // プラグイン停止時のメッセージ
         getLogger().info("停止しました.");
     }
-
-
 }

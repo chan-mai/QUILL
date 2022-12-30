@@ -33,8 +33,8 @@ public class configLoader {
             chatMessage = config.getString("welcome_msg.chat_message");
 
             // 死亡時の座標通知
-            deathLocationFlag = config.getBoolean("death_location_flag");
-            deathLocationMessage = config.getString("death_location_message");
+            deathLocationFlag = config.getBoolean("notificatio_death_location.enable");
+            deathLocationMessage = config.getString("notificatio_death_location.command_message");
 
             checkDB();
         } else {

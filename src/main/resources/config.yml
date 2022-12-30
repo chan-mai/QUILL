@@ -16,3 +16,7 @@ welcome_msg:
     sub_message: "はじめまして, %player%!"
     chat_message: "ようこそ %server_name% へ!"
   chat_message: "おかえりなさい%player%！"
+
+notificatio_death_location:
+    enable: true
+    command_message: "%player%の最終死亡座標: (%world%: %x%, %y%, %z%)"

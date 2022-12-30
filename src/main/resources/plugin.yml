@@ -11,3 +11,10 @@ commands:
     aliases: [ plif ]
     permission: quill.putblockinfo
     permission-message: 権限が不足しています。
+
+  deadlocation:
+    description: 最終に死亡した地点のディメンションと座標を取得します。
+    usage: /deadlocation
+    aliases: [ dloc ]
+    permission: quill.deathlocation
+    permission-message: 権限が不足しています。

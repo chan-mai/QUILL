@@ -12,11 +12,11 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 
 import java.sql.Timestamp;
-import java.util.Date;
 import java.util.UUID;
 
 import static com.mai_llj.plugin.database.*;
-import static com.mai_llj.plugin.config.*;
+import static com.mai_llj.plugin.config.config.*;
+import static com.mai_llj.plugin.util.configParser.*;
 
 public class eventListener implements Listener {
     @EventHandler
@@ -30,10 +30,11 @@ public class eventListener implements Listener {
 
         } else {
             // 初回参加の場合
-            String msg = firstTimeChatmessage.replace("%player%", player.getName()).replace("%server_name%", serverName);
+            String msg = confParse(firstTimeChatmessage, player.getName(), null, null, null, null);
             player.sendMessage(msg);
-            String title = firstTimeMsg[0].replace("%player%", player.getName()).replace("%server_name%", serverName);
-            String subtitle = firstTimeMsg[1].replace("%player%", player.getName()).replace("%server_name%", serverName);
+            String title = confParse(firstTimeMsg[0], player.getName(), null, null, null, null);
+            String subtitle = confParse(firstTimeMsg[1], player.getName(), null, null, null, null);
+            // 表示
             player.sendTitle(title,subtitle,firstTimeMsgData[0],firstTimeMsgData[1],firstTimeMsgData[2]);
         }
     }
@@ -63,7 +64,7 @@ public class eventListener implements Listener {
     @EventHandler
     public void onBreakBlock(PlayerInteractEvent event) {
         // 取得用のフラグが立っている && プレイヤーが手でブロックを破壊しようとしたとき
-        if (getBlockPlaceFlag == true && event.getAction() == Action.LEFT_CLICK_BLOCK) {
+        if (getBlockPlaceFlag && event.getAction() == Action.LEFT_CLICK_BLOCK) {
             // 座標の取得
             int x = event.getClickedBlock().getX();
             int y = event.getClickedBlock().getY();
@@ -88,6 +89,29 @@ public class eventListener implements Listener {
 
             //フラグを初期化
             getBlockPlaceFlag = false;
+        }
+    }
+
+    // 死亡時のイベント
+    @EventHandler
+    public void onDeath(PlayerInteractEvent event) {
+        // プレイヤーが死亡 && 設定が有効
+        if (event.getAction() == Action.LEFT_CLICK_AIR && deathLocationFlag) {
+            // プレイヤーのUUIDを取得
+            String playerUUID = event.getPlayer().getUniqueId().toString();
+            // ワールド名を取得
+            String world = event.getPlayer().getWorld().getName();
+            // プレイヤーの座標を取得
+            int x = event.getPlayer().getLocation().getBlockX();
+            int y = event.getPlayer().getLocation().getBlockY();
+            int z = event.getPlayer().getLocation().getBlockZ();
+            // 現在時刻の取得
+            Timestamp date = new Timestamp(System.currentTimeMillis());
+            // データベースへの書き込み
+            writeDeathLocation(playerUUID, x, y, z, date);
+
+            // プレイヤーにメッセージを送信
+            event.getPlayer().sendMessage(ChatColor.RED+"最終死亡地点: ("+world+": "+x+", "+y+", "+z+")");
         }
     }
 }
