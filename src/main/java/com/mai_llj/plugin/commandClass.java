@@ -7,6 +7,7 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.event.EventPriority;
 
 import java.util.UUID;
 
@@ -53,19 +54,24 @@ public class commandClass implements CommandExecutor {
                 }
             }
         // deadlocation
-        } else if (command.getName().equalsIgnoreCase("deathlocation")) {
-            // プレイヤーのUUIDを取得
-            String uuid = sender.getName();
+        } else if (command.getName().equalsIgnoreCase("deadlocation")) {
+            // プレイヤー名を取得
+            String playerName = sender.getName();
+            // プレイヤー名からUUIDを取得
+            String uuid = Bukkit.getPlayer(playerName).getUniqueId().toString();
             // データベースから最終死亡時の座標を取得
             String[] res = getDeathLocation(uuid);
             // メッセージテンプレートから送信メッセージを動的に生成
-            String message = confParse(deathLocationMessage, sender.getName(), res[0], Integer.parseInt(res[1]), Integer.parseInt(res[2]), Integer.parseInt(res[3]));
+            String message = confParse(deathLocationMessage, Bukkit.getPlayer(UUID.fromString(uuid)).getName(), res[0], Integer.parseInt(res[1]), Integer.parseInt(res[2]), Integer.parseInt(res[3]));
             // プレイヤーにメッセージを送信
             sender.sendMessage(message);
 
             return true;
+
+        // どのコマンドでもない場合
+        } else {
+            return false;
         }
-        return false;
     }
 
 

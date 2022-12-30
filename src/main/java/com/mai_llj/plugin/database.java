@@ -80,7 +80,7 @@ public class database {
     }
 
     // 死亡時に呼び出され、死亡座標をdeathLocationへの書き込み
-    public static void writeDeathLocation(String playerUUID, int x, int y, int z, Timestamp date) {
+    public static void writeDeathLocation(String playerUUID, String world, int x, int y, int z, Timestamp date) {
         try {
             // JDBCドライバのロード
             Class.forName("com.mysql.jdbc.Driver");
@@ -89,7 +89,7 @@ public class database {
             // ステートメントの作成
             Statement stmt = con.createStatement();
             // SQLの実行
-            stmt.executeUpdate("INSERT INTO deathLocation (playerUUID, x, y, z, date) VALUES ('"+playerUUID+"',"+x+","+y+","+z+",'"+date+"')");
+            stmt.executeUpdate("INSERT INTO deathLocation (playerUUID, world, x, y, z, date) VALUES ('"+playerUUID+"','"+world+"',"+x+","+y+","+z+",'"+date+"')");
             // ステートメントのクローズ
             stmt.close();
             // データベースの切断

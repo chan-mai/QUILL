@@ -9,7 +9,8 @@ public class configParser {
         text = text.replace("%x%", String.valueOf(x));
         text = text.replace("%y%", String.valueOf(y));
         text = text.replace("%z%", String.valueOf(z));
-        text = text.replace("%%server_name%%", serverName);
+        text = text.replace("%world%", world);
+        text = text.replace("%server_name%", serverName);
 
         return text;
     }

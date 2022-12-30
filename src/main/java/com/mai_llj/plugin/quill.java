@@ -20,6 +20,7 @@ public final class quill extends JavaPlugin {
         // 登録
         getServer().getPluginManager().registerEvents(new eventListener(), this);
         getCommand("placedinfo").setExecutor(new commandClass());
+        getCommand("deadlocation").setExecutor(new commandClass());
 
         // 読み込み時メッセージ表示
         getLogger().info("読み込みが完了しました.");

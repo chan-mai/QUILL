@@ -8,6 +8,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
+import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 
@@ -63,8 +64,8 @@ public class eventListener implements Listener {
     // ブロックを破壊したときのイベント
     @EventHandler
     public void onBreakBlock(PlayerInteractEvent event) {
-        // 取得用のフラグが立っている && プレイヤーが手でブロックを破壊しようとしたとき
-        if (getBlockPlaceFlag && event.getAction() == Action.LEFT_CLICK_BLOCK) {
+        // 取得用のフラグが立っている
+        if (getBlockPlaceFlag) {
             // 座標の取得
             int x = event.getClickedBlock().getX();
             int y = event.getClickedBlock().getY();
@@ -94,24 +95,24 @@ public class eventListener implements Listener {
 
     // 死亡時のイベント
     @EventHandler
-    public void onDeath(PlayerInteractEvent event) {
-        // プレイヤーが死亡 && 設定が有効
-        if (event.getAction() == Action.LEFT_CLICK_AIR && deathLocationFlag) {
+    public void onDeath(PlayerDeathEvent event) {
+        // 設定が有効
+        if (deathLocationFlag) {
             // プレイヤーのUUIDを取得
-            String playerUUID = event.getPlayer().getUniqueId().toString();
+            String playerUUID = event.getEntity().getUniqueId().toString();
             // ワールド名を取得
-            String world = event.getPlayer().getWorld().getName();
+            String world = event.getEntity().getWorld().getName();
             // プレイヤーの座標を取得
-            int x = event.getPlayer().getLocation().getBlockX();
-            int y = event.getPlayer().getLocation().getBlockY();
-            int z = event.getPlayer().getLocation().getBlockZ();
+            int x = event.getEntity().getLocation().getBlockX();
+            int y = event.getEntity().getLocation().getBlockY();
+            int z = event.getEntity().getLocation().getBlockZ();
             // 現在時刻の取得
             Timestamp date = new Timestamp(System.currentTimeMillis());
             // データベースへの書き込み
-            writeDeathLocation(playerUUID, x, y, z, date);
+            writeDeathLocation(playerUUID, world, x, y, z, date);
 
             // プレイヤーにメッセージを送信
-            event.getPlayer().sendMessage(ChatColor.RED+"最終死亡地点: ("+world+": "+x+", "+y+", "+z+")");
+            event.getEntity().sendMessage(ChatColor.RED+"最終死亡地点: ("+world+": "+x+", "+y+", "+z+")");
         }
     }
 }
