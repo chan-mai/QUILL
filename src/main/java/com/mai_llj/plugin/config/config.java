@@ -1,4 +1,4 @@
-package com.mai_llj.plugin;
+package com.mai_llj.plugin.config;
 
 public class config {
     // 共通変数
@@ -17,6 +17,10 @@ public class config {
     public static String[] firstTimeMsg = new String[2];
     public static String firstTimeChatmessage;
     public static String chatMessage;
+
+    // 死亡時の座標通知
+    public static boolean deathLocationFlag = false;
+    public static String deathLocationMessage;
 
 
 }
