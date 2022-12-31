@@ -15,14 +15,16 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import java.sql.Timestamp;
 import java.util.UUID;
 
-import static com.mai_llj.plugin.database.*;
+import static com.mai_llj.plugin.extension.database.*;
 import static com.mai_llj.plugin.config.config.*;
+import static com.mai_llj.plugin.extension.renamePlayerTag.*;
 import static com.mai_llj.plugin.util.configParser.*;
 
 public class eventListener implements Listener {
     @EventHandler
     public void onJoin(PlayerJoinEvent event) {
         Player player = event.getPlayer();
+
         // 初回の参加かどうかを判定
         if (player.hasPlayedBefore()) {
             String msg = chatMessage.replace("%player%", player.getName()).replace("%server_name%", serverName);
@@ -31,13 +33,19 @@ public class eventListener implements Listener {
 
         } else {
             // 初回参加の場合
-            String msg = confParse(firstTimeChatmessage, player.getName(), null, null, null, null);
+            String msg = confParse(firstTimeChatmessage, player.getName(), null, null, null, null, null);
             player.sendMessage(msg);
-            String title = confParse(firstTimeMsg[0], player.getName(), null, null, null, null);
-            String subtitle = confParse(firstTimeMsg[1], player.getName(), null, null, null, null);
+            String title = confParse(firstTimeMsg[0], player.getName(), null, null, null, null, null);
+            String subtitle = confParse(firstTimeMsg[1], player.getName(), null, null, null, null, null);
             // 表示
             player.sendTitle(title,subtitle,firstTimeMsgData[0],firstTimeMsgData[1],firstTimeMsgData[2]);
         }
+
+        // uuidの取得
+        String playerUUID = player.getUniqueId().toString();
+        player.sendMessage(playerUUID);
+        // 称号の反映
+        renamePlayerTag(playerUUID);
     }
 
     // ブロックを設置したときのイベント

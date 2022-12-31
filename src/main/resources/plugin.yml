@@ -18,3 +18,10 @@ commands:
     aliases: [ dloc ]
     permission: quill.deathlocation
     permission-message: 権限が不足しています。
+
+  tag:
+    description: プレイヤーに任意のタグを設定します。
+    usage: /tag <プレイヤー名> <称号>
+    aliases: [ tg ]
+    permission: quill.tag
+    permission-message: 権限が不足しています。
