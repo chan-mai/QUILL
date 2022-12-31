@@ -22,9 +22,6 @@ public class config {
     public static boolean deathLocationFlag = false;
     public static String deathLocationMessage;
 
-    // 称号
-    public static String playerTagFormat;
-
 
 }
 

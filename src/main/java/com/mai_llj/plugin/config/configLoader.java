@@ -5,7 +5,7 @@ import org.bukkit.plugin.Plugin;
 
 import static com.mai_llj.plugin.config.config.*;
 import static com.mai_llj.plugin.config.config.deathLocationMessage;
-import static com.mai_llj.plugin.extension.database.checkDB;
+import static com.mai_llj.plugin.database.checkDB;
 import static org.bukkit.Bukkit.getLogger;
 import static org.bukkit.Bukkit.getServer;
 
@@ -21,7 +21,6 @@ public class configLoader {
 
             // 共通
             serverName = config.getString("server_name");
-            playerTagFormat = config.getString("player_tag_format");
 
             // 参加時のメッセージ関連
             // o:fadein 1:stay 2:fadeout

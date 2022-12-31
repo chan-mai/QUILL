@@ -4,8 +4,8 @@ connection:
   password: ""
   database: "quill"
 
+
 server_name: "A Minecraft Server"
-player_tag_format: "[%tag%] %player%"
 
 welcome_msg:
   first_time:
