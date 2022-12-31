@@ -1,5 +1,6 @@
 package com.mai_llj.plugin;
 
+import com.mai_llj.plugin.commands.*;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -19,9 +20,9 @@ public final class quill extends JavaPlugin {
 
         // 登録
         getServer().getPluginManager().registerEvents(new eventListener(), this);
-        getCommand("placedinfo").setExecutor(new commandClass());
-        getCommand("deadlocation").setExecutor(new commandClass());
-        getCommand("tag").setExecutor(new commandClass());
+        getCommand("placedinfo").setExecutor(new placedInfoCommand());
+        getCommand("deadlocation").setExecutor(new deadLocationCommand());
+        getCommand("tag").setExecutor(new tagCommand());
 
         // 読み込み時メッセージ表示
         getLogger().info("読み込みが完了しました.");
