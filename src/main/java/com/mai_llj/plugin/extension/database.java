@@ -1,4 +1,4 @@
-package com.mai_llj.plugin;
+package com.mai_llj.plugin.extension;
 
 import java.sql.*;
 
@@ -17,6 +17,8 @@ public class database {
             stmt.executeUpdate("CREATE TABLE IF NOT EXISTS putBlockLog (playerUUID VARCHAR(255), blockName VARCHAR(255), x INT, y INT, z INT, date TIMESTAMP)");
             // 死亡時の座標用テーブル
             stmt.executeUpdate("CREATE TABLE IF NOT EXISTS deathLocation (playerUUID VARCHAR(255), world VARCHAR(255), x INT, y INT, z INT, date TIMESTAMP)");
+            // 称号保管用のテーブル
+            stmt.executeUpdate("CREATE TABLE IF NOT EXISTS playerTags (playerUUID VARCHAR(255), tag VARCHAR(255))");
             // データベースの切断
             con.close();
         } catch (Exception e) {
@@ -58,7 +60,7 @@ public class database {
             // 結果の取得
             while (rs.next()) {
                 //データの存在確認
-                if (rs.getString("playerUUID") != null) {
+                if (rs.getString("playerUUID") != null && rs.getString("playerUUID") != "") {
                     result[0] = rs.getString("playerUUID");
                     result[1] = rs.getString("blockName");
                     result[2] = rs.getString("date");
@@ -114,7 +116,7 @@ public class database {
             // 結果の取得
             while (rs.next()) {
                 //データの存在確認
-                if (rs.getString("playerUUID") != null) {
+                if (rs.getString("playerUUID") != null && rs.getString("playerUUID") != "") {
                     result[0] = rs.getString("world");
                     result[1] = rs.getString("x");
                     result[2] = rs.getString("y");
@@ -135,5 +137,76 @@ public class database {
         }
 
         return result;
+    }
+
+    // UUIDからプレイヤーの称号を取得
+    public static String getPlayerTag(String playerUUID) {
+        String result = "";
+        try {
+            // JDBCドライバのロード
+            Class.forName("com.mysql.jdbc.Driver");
+            // データベースへの接続
+            Connection con = DriverManager.getConnection("jdbc:mysql://"+host+"/"+database, user, password);
+            // ステートメントの作成
+            Statement stmt = con.createStatement();
+            // SQLの実行
+            ResultSet rs = stmt.executeQuery("SELECT * FROM playerTags WHERE playerUUID='"+playerUUID+"'");
+            // 結果の取得
+            while (rs.next()) {
+                //データの存在確認
+                if (rs.getString("playerUUID") != null && rs.getString("playerUUID") != "") {
+                    result = rs.getString("tag");
+                } else {
+                    result = null;
+                }
+            }
+            // ステートメントのクローズ
+            stmt.close();
+            // データベースの切断
+            con.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    // プレイヤーの称号を設定
+    public static void setPlayerTag(String playerUUID, String tagName) {
+        try {
+            // JDBCドライバのロード
+            Class.forName("com.mysql.jdbc.Driver");
+            // データベースへの接続
+            Connection con = DriverManager.getConnection("jdbc:mysql://"+host+"/"+database, user, password);
+            // ステートメントの作成
+            Statement stmt = con.createStatement();
+            // SQLの実行
+            stmt.executeUpdate("INSERT INTO playerTags (playerUUID, tag) VALUES ('"+playerUUID+"','"+tagName+"') ON DUPLICATE KEY UPDATE tag='"+tagName+"'");
+            // ステートメントのクローズ
+            stmt.close();
+            // データベースの切断
+            con.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    // プレイヤーの称号を削除
+    public static void deletePlayerTag(String playerUUID) {
+        try {
+            // JDBCドライバのロード
+            Class.forName("com.mysql.jdbc.Driver");
+            // データベースへの接続
+            Connection con = DriverManager.getConnection("jdbc:mysql://"+host+"/"+database, user, password);
+            // ステートメントの作成
+            Statement stmt = con.createStatement();
+            // SQLの実行
+            stmt.executeUpdate("DELETE FROM playerTags WHERE playerUUID='"+playerUUID+"'");
+            // ステートメントのクローズ
+            stmt.close();
+            // データベースの切断
+            con.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
