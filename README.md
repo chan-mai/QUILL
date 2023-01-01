@@ -56,7 +56,7 @@ ___
 ### `/tag set`
 プレイヤーの称号を変更します。
 #### USAGE
-`/tag set <プレイヤー名> <称号>`
+`/tag set <プレイヤー名> <称号>`  
 Alias: `/tg set <プレイヤー名> <称号>`
 #### EXAMPLE
 `/tag set Mai_llj 称号`  
@@ -65,7 +65,7 @@ Alias: `/tg set <プレイヤー名> <称号>`
 ### `/tag remove`
 プレイヤーの称号を削除します。
 #### USAGE
-`/tag remove <プレイヤー名>`
+`/tag remove <プレイヤー名>`  
 Alias: `/tg remove <プレイヤー名>`
 #### EXAMPLE
 `/tag remove Mai_llj`  
